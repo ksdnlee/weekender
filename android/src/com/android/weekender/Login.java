@@ -19,30 +19,41 @@ import android.os.Build;
 
 public class Login extends ActionBarActivity {
 
-	
+	private EditText username = null;
+	private EditText password = null;
+	private Button login_button;
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 
-	// Called when the user clicks the Send button
-		public void capturePic(View view){
-			//Do something in response to the button
-			Intent intent = new Intent(this, Capture.class);
-			String message = "hello";
-			intent.putExtra(EXTRA_MESSAGE, message);
-			startActivity(intent);
-		}
 	
-	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-       
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-        
-    }
+		@Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.activity_login);
+	        if (savedInstanceState == null) {
+	            getSupportFragmentManager().beginTransaction()
+	                    .add(R.id.container, new PlaceholderFragment())
+	                    .commit();
+	        }
+	        username = (EditText)findViewById(R.id.editText1);
+	        password = (EditText)findViewById(R.id.editText2);
+	        login_button = (Button)findViewById(R.id.button1);
+	    }
+		
+		public void login(View view) {
+			if (username.getText().toString().equals("admin@admin.com") &&
+			password.getText().toString().equals("admin")) {
+				Toast.makeText(getApplicationContext(), "Logging in!", Toast.LENGTH_SHORT).show();
+				
+				//Send to main gallery
+				Intent intent = new Intent(this, Gallery.class);
+				String message = "user";
+				intent.putExtra(EXTRA_MESSAGE, message);
+				startActivity(intent);
+			}
+			else {
+				
+			}
+		}
 
 
     @Override

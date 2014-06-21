@@ -7,7 +7,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login_button">Login</string>
-    <string name="capture_picture">camera</string>
+    <string name="capture_picture">Camera</string>
     <string name="title_activity_capture">Capture</string>
 
 </resources>
