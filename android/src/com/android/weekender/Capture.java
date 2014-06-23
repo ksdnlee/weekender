@@ -30,12 +30,21 @@ public class Capture extends ActionBarActivity {
 	        setContentView(R.layout.cam);
 	        imageView = (ImageView)findViewById(R.id.imageView1);
 	        Button photoButton = (Button)findViewById(R.id.button1);
+	        Button publishButton = (Button)findViewById(R.id.button2);
 	        photoButton.setOnClickListener(new View.OnClickListener() {
 
 	            @Override
 	            public void onClick(View v) {
 	                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); 
 	                startActivityForResult(cameraIntent, CAMERA_REQUEST); 
+	            }
+	        });
+	        
+	        publishButton.setOnClickListener(new View.OnClickListener() {
+
+	            @Override
+	            public void onClick(View v) {
+	            	Toast.makeText(getApplicationContext(), "Photo Uploaded!", Toast.LENGTH_SHORT).show();
 	            }
 	        });
 	    }
