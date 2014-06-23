@@ -32,6 +32,15 @@
         <activity
             android:name="com.android.weekender.Capture"
             android:label="@string/title_activity_capture"
+            android:parentActivityName="com.android.weekender.Gallery" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.weekender.Gallery" />
+        </activity>
+        <!-- 3rd activity -->
+        <activity
+            android:name="com.android.weekender.Gallery"
+            android:label="@string/title_activity_gallery"
             android:parentActivityName="com.android.weekender.Login" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

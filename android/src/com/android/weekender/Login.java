@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +20,6 @@ import android.os.Build;
 
 public class Login extends ActionBarActivity {
 
-	private EditText username = null;
-	private EditText password = null;
 	private Button login_button;
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 
@@ -34,12 +33,17 @@ public class Login extends ActionBarActivity {
 	                    .add(R.id.container, new PlaceholderFragment())
 	                    .commit();
 	        }
-	        username = (EditText)findViewById(R.id.editText1);
-	        password = (EditText)findViewById(R.id.editText2);
+
 	        login_button = (Button)findViewById(R.id.button1);
 	    }
 		
 		public void login(View view) {
+			EditText username;
+			EditText password;
+			
+	        username = (EditText)findViewById(R.id.editText1);
+	        password = (EditText)findViewById(R.id.editText2);
+			
 			if (username.getText().toString().equals("admin@admin.com") &&
 			password.getText().toString().equals("admin")) {
 				Toast.makeText(getApplicationContext(), "Logging in!", Toast.LENGTH_SHORT).show();
@@ -51,7 +55,7 @@ public class Login extends ActionBarActivity {
 				startActivity(intent);
 			}
 			else {
-				
+				Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
 			}
 		}
 
