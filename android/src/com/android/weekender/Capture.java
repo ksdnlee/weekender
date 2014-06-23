@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 
 public class Capture extends ActionBarActivity {
@@ -45,5 +46,9 @@ public class Capture extends ActionBarActivity {
 	            imageView.setImageBitmap(photo);
 	        }  
 
+	    }
+	    
+	    public void publish() {
+	    	Toast.makeText(getApplicationContext(), "Photo Uploaded!", Toast.LENGTH_SHORT).show();
 	    }
 }

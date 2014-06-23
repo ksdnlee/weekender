@@ -10,5 +10,6 @@
     <string name="capture_picture">Camera</string>
     <string name="title_activity_capture">Capture</string>
     <string name="title_activity_gallery">Gallery</string>
+    <string name="publish_picture">Publish</string>
 
 </resources>
