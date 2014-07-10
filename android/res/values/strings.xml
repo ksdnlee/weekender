@@ -11,5 +11,6 @@
     <string name="title_activity_capture">Capture</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="publish_picture">Publish</string>
-
+    <string name="action_camera">C</string>
+    <string name="action_nearby">N</string>
 </resources>

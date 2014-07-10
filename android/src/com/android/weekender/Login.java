@@ -49,7 +49,7 @@ public class Login extends ActionBarActivity {
 				Toast.makeText(getApplicationContext(), "Logging in!", Toast.LENGTH_SHORT).show();
 				
 				//Send to main gallery
-				Intent intent = new Intent(this, Gallery.class);
+				Intent intent = new Intent(this, GalleryActivity.class);
 				String message = "user";
 				intent.putExtra(EXTRA_MESSAGE, message);
 				startActivity(intent);

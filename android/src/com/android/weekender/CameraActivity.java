@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-public class Capture extends ActionBarActivity {
+public class CameraActivity extends ActionBarActivity {
 
 	  private static final int CAMERA_REQUEST = 1888; 
 	    private ImageView imageView;

@@ -30,16 +30,17 @@
         </activity>
         <!-- 2nd activity -->
         <activity
-            android:name="com.android.weekender.Capture"
+            android:name="com.android.weekender.CameraActivity"
             android:label="@string/title_activity_capture"
-            android:parentActivityName="com.android.weekender.Gallery" >
+            android:parentActivityName="com.android.weekender.GalleryActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.weekender.Gallery" />
         </activity>
         <!-- 3rd activity -->
         <activity
-            android:name="com.android.weekender.Gallery"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:name="com.android.weekender.GalleryActivity"
             android:label="@string/title_activity_gallery"
             android:parentActivityName="com.android.weekender.Login" >
             <meta-data

@@ -9,6 +9,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.96" >
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:id="@+id/hor_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +27,6 @@
             android:layout_marginBottom="43dp"
             android:onClick="capturePic"
             android:text="@string/capture_picture" />
+    </RelativeLayout> <!-- Methods name is capturePic -->
 
-    </RelativeLayout>   <!-- Methods name is capturePic -->
-    
 </LinearLayout>
