@@ -44,8 +44,8 @@ public class Login extends ActionBarActivity {
 	        username = (EditText)findViewById(R.id.editText1);
 	        password = (EditText)findViewById(R.id.editText2);
 			
-			if (username.getText().toString().equals("admin@admin.com") &&
-			password.getText().toString().equals("admin")) {
+			if (username.getText().toString().equals("") &&
+			password.getText().toString().equals("")) {
 				Toast.makeText(getApplicationContext(), "Logging in!", Toast.LENGTH_SHORT).show();
 				
 				//Send to main gallery

@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="photo" >
-    </Button>
+
     <ImageView
-        android:id="@+id/imageView1"
+    	android:id="@+id/pictureView"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="209dp"
+        android:visibility="visible"
+    />
+
+    <EditText
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" >
-    </ImageView>
+        android:layout_alignTop="@+id/caption"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:ems="10" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/publishButton"
+        android:layout_alignBottom="@+id/publishButton"
+        android:layout_alignLeft="@+id/title"
+        android:onClick="cancel"
+        android:text="@string/picture_cancel" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="34dp"
-            android:text="@string/publish_picture"
-           />
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/publishButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
+        android:text="@string/picture_title" />
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/publishButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/title"
+        android:layout_marginBottom="24dp"
+        android:onClick="publish"
+        android:text="@string/publish_picture" />
 
-</LinearLayout>
+</RelativeLayout>
