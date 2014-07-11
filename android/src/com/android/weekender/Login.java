@@ -1,99 +1,118 @@
 package com.android.weekender;
 
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+import com.facebook.widget.LoginButton.UserInfoChangedCallback;
+import com.parse.FunctionCallback;
+import com.parse.Parse;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+
 
 public class Login extends ActionBarActivity {
-
-	private Button login_button;
+	
+	private LoginButton loginBtn;
+	private UiLifecycleHelper uiHelper;
+	private final String classname = "UserProfile";
+	private boolean loggedFlag = false;
+	
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 
-	
-		@Override
-	    protected void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.activity_login);
-	        if (savedInstanceState == null) {
-	            getSupportFragmentManager().beginTransaction()
-	                    .add(R.id.container, new PlaceholderFragment())
-	                    .commit();
-	        }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+ 
+		Parse.initialize(this, "7rl4Da1XbvpuaKKDKb6VCMZseFZkwEuKyXT4QPDd", "2Rah9NP3dkgUhfToKZlCXT6YLOl4WQUNEMLyC8Ol");
 
-	        login_button = (Button)findViewById(R.id.button1);
-	    }
-		
-		public void login(View view) {
-			EditText username;
-			EditText password;
-			
-	        username = (EditText)findViewById(R.id.editText1);
-	        password = (EditText)findViewById(R.id.editText2);
-			
-			if (username.getText().toString().equals("") &&
-			password.getText().toString().equals("")) {
-				Toast.makeText(getApplicationContext(), "Logging in!", Toast.LENGTH_SHORT).show();
-				
-				//Send to main gallery
-				Intent intent = new Intent(this, GalleryActivity.class);
-				String message = "user";
-				intent.putExtra(EXTRA_MESSAGE, message);
-				startActivity(intent);
+		uiHelper = new UiLifecycleHelper(this, statusCallback);
+		uiHelper.onCreate(savedInstanceState);
+ 
+		setContentView(R.layout.activity_login);
+
+		loginBtn = (LoginButton) findViewById(R.id.fb_login_button);
+		loginBtn.setUserInfoChangedCallback(new UserInfoChangedCallback() {
+			@Override
+			public void onUserInfoFetched(final GraphUser user) {
+				if (user != null) {
+					HashMap<String, Object> params = new HashMap<String, Object>();
+					params.put("userId", user.getId());
+					params.put("class", classname);
+
+					ParseCloud.callFunctionInBackground("isNewUser", params, new FunctionCallback<Integer>() {
+					   public void done(Integer result, ParseException e) {
+					       if (e == null) {
+					    	   if (result == 1) {
+					    		   //insert into database
+					    		   ParseObject post_data = new ParseObject("UserProfile");
+					    		   post_data.put("userId", user.getId());
+					    		   post_data.put("firstName", user.getFirstName());
+					    		   post_data.put("lastName", user.getLastName());
+					    		   post_data.saveInBackground();
+					    	   }
+					       }
+					   }
+					});
+		    		loggedFlag = true;
+					Toast.makeText(getApplicationContext(), "Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
+				    if (loggedFlag) {
+				    	moveToGallery();
+				    }
+					
+				} else {
+		    		loggedFlag = false;
+					Toast.makeText(getApplicationContext(), "Not logged in", Toast.LENGTH_SHORT).show();
+				}
 			}
-			else {
-				Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+		});	
+		
+	}
+	
+	private Session.StatusCallback statusCallback = new Session.StatusCallback() {
+		@Override
+		public void call(Session session, SessionState state,
+				Exception exception) {
+			if (state.isOpened()) {
+				loggedFlag = true;
+				moveToGallery();
+				Log.i("FacebookSampleActivity", "Facebook session opened");
+			} else if (state.isClosed()) {
+				loggedFlag = false;
+				Log.i("FacebookSampleActivity", "Facebook session closed");
 			}
 		}
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-            return rootView;
-        }
-    }
-
+	};
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		uiHelper.onActivityResult(requestCode, resultCode, data);
+	}
+ 
+	@Override
+	public void onSaveInstanceState(Bundle savedState) {
+		super.onSaveInstanceState(savedState);
+		uiHelper.onSaveInstanceState(savedState);
+	}
+	
+	public void moveToGallery () {
+		 //Send to main gallery
+		Intent intent = new Intent(this, GalleryActivity.class);
+		String message = "user";
+		intent.putExtra(EXTRA_MESSAGE, message);
+		startActivity(intent);
+	}
+	
 }
