@@ -20,16 +20,16 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
-import android.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Environment;
+=======
+import android.support.v7.app.ActionBarActivity;
+>>>>>>> 3bfe2060c33dbc3236353e0c9829e5b9f338b2a8
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+<<<<<<< HEAD
 public class GalleryActivity extends ActionBarActivity implements IGalleryView,
 		OnClickListener {
 
@@ -55,12 +56,30 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView,
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 	GridView hor_gallery;
 	private ArrayList<GalleryItem> mImages;
+=======
+import com.android.weekender.helper.Constants;
+import com.android.weekender.helper.UserObject;
+
+public class GalleryActivity extends ActionBarActivity implements IGalleryView, OnClickListener {
+
+	private GalleryPresenter mGP;
+	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
+	LinearLayout hor_gallery;
+	UserObject uObject;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gallery);
 
+		Bundle b = getIntent().getExtras();
+		if (b != null){
+			uObject = b.getParcelable(Constants.USER_OBJECT);
+		} else {
+			Log.e("FailedUserObjectPass", "FAIL TO GET ID");
+		}
+		
 		// make Presenter
 		mGP = new GalleryPresenter(this);
 		final Context thisCtx = this;
@@ -218,8 +237,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView,
 	public void cameraActionPressed(View view) {
 		// Do something in response to the button
 		Intent intent = new Intent(this, CameraActivity.class);
-		String message = "hello";
-		intent.putExtra(EXTRA_MESSAGE, message);
+		intent.putExtra(Constants.USER_OBJECT, uObject);
 		startActivity(intent);
 	}
 

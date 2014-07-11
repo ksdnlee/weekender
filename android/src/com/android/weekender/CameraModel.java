@@ -35,8 +35,7 @@ public class CameraModel {
 	String parseUserIdColumn = Constants.COLUMN_USERID;
 	String parseGeoPoint = Constants.COLUMN_GEOPOINT;
 
-	// Test strings
-	String userId = "abcdefg";
+	String userId = "";
 
 	// GeoPoint
 	Double longitude;
@@ -45,6 +44,7 @@ public class CameraModel {
 	public CameraModel(CameraActivity view) {
 		Parse.initialize(view, "7rl4Da1XbvpuaKKDKb6VCMZseFZkwEuKyXT4QPDd",
 				"2Rah9NP3dkgUhfToKZlCXT6YLOl4WQUNEMLyC8Ol");
+		userId = view.uObject.getUserId();
 	}
 
 	public Intent getCameraIntent() {
@@ -70,7 +70,7 @@ public class CameraModel {
 	}
 
 	public Bitmap getImage() {
-		Log.i("getImage", "photo filepath: " + photoPath.getPath());
+		Log.i("[CameraModel] getImage", "photo filepath: " + photoPath.getPath());
 		Bitmap bitmap_photo = BitmapFactory.decodeFile(photoPath.getPath());
 		return bitmap_photo;
 	}
@@ -78,7 +78,7 @@ public class CameraModel {
 	public boolean publish(String title) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		Bitmap bitmap_photo = getImage();
-		bitmap_photo.compress(Bitmap.CompressFormat.PNG, 70, stream);
+		bitmap_photo.compress(Bitmap.CompressFormat.JPEG, 70, stream);
 		byte[] photoData = stream.toByteArray();
 
 		ParseFile parse_photo = new ParseFile(title, photoData);
@@ -96,9 +96,9 @@ public class CameraModel {
 			post_data.saveInBackground(new SaveCallback() {
 				public void done(ParseException e) {
 					if (e == null) {
-						Log.d("CameraModel publish", "Saved picture successfully");
+						Log.d("[CameraModel] publish", "Saved picture successfully");
 					} else {
-						Log.e("CameraModel publish",
+						Log.e("[CameraModel] publish",
 								"Could not save picture: " + e.getMessage());
 					}
 				}

@@ -1,11 +1,15 @@
 package com.android.weekender;
 
+import com.android.weekender.helper.Constants;
+import com.android.weekender.helper.UserObject;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,12 +21,22 @@ public class CameraActivity extends ActionBarActivity {
 	CameraPresenter mCameraPresenter;
 	int CAMERA_REQUEST = 1888;
 	LocationManager locManager = null;
+	UserObject uObject;
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cam);
 
+		// get UserObject
+		Bundle b = getIntent().getExtras();
+		if (b != null){
+			uObject = b.getParcelable(Constants.USER_OBJECT);
+		} else {
+			Log.e("FailedUserObjectPassCamera", "FAIL TO GET ID");
+		}
+		
 		// Interface Button
 		pictureView = (ImageView) findViewById(R.id.pictureView);
 		captionTitle = (EditText) findViewById(R.id.title);
@@ -39,8 +53,8 @@ public class CameraActivity extends ActionBarActivity {
 		pictureView.setImageBitmap(image);
 		
 		// get GeoPoint
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		mCameraPresenter.setGeoPoint(locManager);
+		//locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		//mCameraPresenter.setGeoPoint(locManager);
 		
 	}
 
@@ -69,6 +83,7 @@ public class CameraActivity extends ActionBarActivity {
 
 	private void goToGalleryActivity() {
 		Intent intent = new Intent(this, GalleryActivity.class);
+		intent.putExtra(Constants.USER_OBJECT, uObject);
 		startActivity(intent);
 	}
 }
