@@ -12,7 +12,6 @@ public class UserObject implements Parcelable {
 		this.objectId = objectId;
 		this.fName = fName;
 		this.lName = lName;
-		this.objectId = "";
 	}
 
 	public void setUserId(String objectId) {

@@ -35,8 +35,7 @@ public class CameraModel {
 	String parseUserIdColumn = Constants.COLUMN_USERID;
 	String parseGeoPoint = Constants.COLUMN_GEOPOINT;
 
-	// Test strings
-	String userId = "abcdefg";
+	String userId = "";
 
 	// GeoPoint
 	Double longitude;
@@ -45,6 +44,7 @@ public class CameraModel {
 	public CameraModel(CameraActivity view) {
 		Parse.initialize(view, "7rl4Da1XbvpuaKKDKb6VCMZseFZkwEuKyXT4QPDd",
 				"2Rah9NP3dkgUhfToKZlCXT6YLOl4WQUNEMLyC8Ol");
+		userId = view.uObject.getUserId();
 	}
 
 	public Intent getCameraIntent() {
