@@ -13,4 +13,7 @@ public class Constants {
 	final public static String PHOTO_DIR_NAME = "Weekender";
 	// temp picture name
 	final public static String PHOTO_TEMP_NAME = "temp_photo.bmp";
+	
+	//userObject
+	final public static String USER_OBJECT = "com.android.weekedner.helper.uObject";
 }

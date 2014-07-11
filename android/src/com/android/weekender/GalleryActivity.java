@@ -2,15 +2,12 @@ package com.android.weekender;
 
 import java.io.File;
 
-import android.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,16 +18,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.weekender.helper.Constants;
+import com.android.weekender.helper.UserObject;
+
 public class GalleryActivity extends ActionBarActivity implements IGalleryView, OnClickListener {
 
 	private GalleryPresenter mGP;
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 	LinearLayout hor_gallery;
+	UserObject uObject;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gallery);
+		
+		Bundle b = getIntent().getExtras();
+		if (b != null){
+			uObject = b.getParcelable(Constants.USER_OBJECT);
+		} else {
+			Log.e("FailedUserObjectPass", "FAIL TO GET ID");
+		}
+		
 		
 		mGP = new GalleryPresenter(this);
 

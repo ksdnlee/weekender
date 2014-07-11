@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.weekender.helper.Constants;
+import com.android.weekender.helper.UserObject;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -28,6 +30,8 @@ public class Login extends ActionBarActivity {
 	private UiLifecycleHelper uiHelper;
 	private final String classname = "UserProfile";
 	private boolean loggedFlag = false;
+	private static String parseObjectId = "";
+	private UserObject uObject;
 	
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 
@@ -49,7 +53,7 @@ public class Login extends ActionBarActivity {
 				if (user != null) {
 					HashMap<String, Object> params = new HashMap<String, Object>();
 					params.put("userId", user.getId());
-					params.put("class", classname);
+					params.put("classname", classname);
 
 					ParseCloud.callFunctionInBackground("isNewUser", params, new FunctionCallback<Integer>() {
 					   public void done(Integer result, ParseException e) {
@@ -65,8 +69,19 @@ public class Login extends ActionBarActivity {
 					       }
 					   }
 					});
+					
+					try {
+						uObject = new UserObject(ParseCloud.callFunction("getUserObjectId", params).toString(), user.getFirstName(), user.getLastName());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 		    		loggedFlag = true;
-					Toast.makeText(getApplicationContext(), "Logged in as " + user.getName(), Toast.LENGTH_SHORT).show();
+
+		    		//create userObject
+					Toast.makeText(getApplicationContext(), "Logged in as " + uObject.getfName(), Toast.LENGTH_SHORT).show();
+
 				    if (loggedFlag) {
 				    	moveToGallery();
 				    }
@@ -110,8 +125,7 @@ public class Login extends ActionBarActivity {
 	public void moveToGallery () {
 		 //Send to main gallery
 		Intent intent = new Intent(this, GalleryActivity.class);
-		String message = "user";
-		intent.putExtra(EXTRA_MESSAGE, message);
+		intent.putExtra(Constants.USER_OBJECT, uObject);
 		startActivity(intent);
 	}
 	
