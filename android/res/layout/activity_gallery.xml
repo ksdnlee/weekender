@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+	<GridView
+        android:id="@+id/hor_gallery"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.96" >
+        android:layout_height="match_parent"
+        android:layout_margin="40dp"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:horizontalSpacing="20dp"
+        android:numColumns="2"
+        android:verticalSpacing="8dp" />
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <LinearLayout
-                android:id="@+id/hor_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
 
         <Button
             android:layout_width="wrap_content"
@@ -25,8 +22,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="43dp"
-            android:onClick="capturePic"
+            android:onClick="cameraActionPressed"
             android:text="@string/capture_picture" />
-    </RelativeLayout> <!-- Methods name is capturePic -->
+ <!-- Methods name is capturePic -->
 
-</LinearLayout>
+</RelativeLayout>
