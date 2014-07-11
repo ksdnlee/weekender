@@ -20,16 +20,14 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Environment;
-=======
 import android.support.v7.app.ActionBarActivity;
->>>>>>> 3bfe2060c33dbc3236353e0c9829e5b9f338b2a8
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -47,16 +45,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
-<<<<<<< HEAD
-public class GalleryActivity extends ActionBarActivity implements IGalleryView,
-		OnClickListener {
-
-	private GalleryPresenter mGP;
-	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
-	GridView hor_gallery;
-	private ArrayList<GalleryItem> mImages;
-=======
 import com.android.weekender.helper.Constants;
 import com.android.weekender.helper.UserObject;
 
@@ -64,8 +52,9 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 
 	private GalleryPresenter mGP;
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
-	LinearLayout hor_gallery;
+	GridView hor_gallery;
 	UserObject uObject;
+	private ArrayList<GalleryItem> mImages;
 
 
 	@Override
