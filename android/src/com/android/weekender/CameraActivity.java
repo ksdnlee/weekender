@@ -4,6 +4,7 @@ import com.android.weekender.helper.Constants;
 import com.android.weekender.helper.UserObject;
 
 import android.support.v7.app.ActionBarActivity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,7 +25,7 @@ public class CameraActivity extends ActionBarActivity {
 	UserObject uObject;
 
 	
-	@Override
+	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cam);
@@ -37,6 +38,10 @@ public class CameraActivity extends ActionBarActivity {
 			Log.e("FailedUserObjectPassCamera", "FAIL TO GET ID");
 		}
 		
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setDisplayShowHomeEnabled(false);
+
 		// Interface Button
 		pictureView = (ImageView) findViewById(R.id.pictureView);
 		captionTitle = (EditText) findViewById(R.id.title);

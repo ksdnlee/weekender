@@ -43,29 +43,34 @@ public class ImageAdapter extends BaseAdapter {
 //		imageView.setImageBitmap(mList.get(position).getBitmap());
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-//		final int imgSize = 400;
-//		
-//		imageView.setLayoutParams(new GridView.LayoutParams(imgSize, imgSize));
-//		
-//		final int dimen = mList.get(position).isSelected ?  (int) mContext.getResources().getDimension(R.dimen.step_1_2) :
-//															(int) mContext.getResources().getDimension(R.dimen.step_0);
-		imageView.setPadding(40, 80, 40, 10);
+		imageView.setPadding(20, 10, 20, 10);
 		
-//		imageView.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                RelativeLayout.LayoutParams parms2 = new RelativeLayout.LayoutParams(v.getLayoutParams());
-//                 parms2.addRule(RelativeLayout.CENTER_VERTICAL);
-//                 parms2.addRule(RelativeLayout.CENTER_HORIZONTAL);
-//                  v.setLayoutParams(parms2);
-//                 
-//            }
-//        });
 		
 		return imageView;
 	}
+	
+	
+//	CODE FOR SQUARE BITMAP
+//	if (srcBmp.getWidth() >= srcBmp.getHeight()){
+//
+//		  dstBmp = Bitmap.createBitmap(
+//		     srcBmp, 
+//		     srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
+//		     0,
+//		     srcBmp.getHeight(), 
+//		     srcBmp.getHeight()
+//		     );
+//
+//		}else{
+//
+//		  dstBmp = Bitmap.createBitmap(
+//		     srcBmp,
+//		     0, 
+//		     srcBmp.getHeight()/2 - srcBmp.getWidth()/2,
+//		     srcBmp.getWidth(),
+//		     srcBmp.getWidth() 
+//		     );
+//		}
 	
 	//imgview.setScaleType(ScaleType.FIT_XY);
 

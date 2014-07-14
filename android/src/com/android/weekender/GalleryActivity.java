@@ -27,17 +27,24 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -60,8 +67,13 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_gallery);
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);  
 
+		setContentView(R.layout.activity_gallery);
+		
 		Bundle b = getIntent().getExtras();
 		if (b != null){
 			uObject = b.getParcelable(Constants.USER_OBJECT);
@@ -81,7 +93,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		final String imagesClass = Constants.CLASS_IMAGES;
 		params.put("start", "0");
-		params.put("end", "5");
+		params.put("end", "6");
 		params.put("classname", imagesClass);
 
 		// get all  the id's here in an array and then pass the array to Adapter
@@ -111,115 +123,43 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 			hor_gallery.setAdapter(new ImageAdapter(thisCtx, mImages));
 		}
 		
+		ImageButton gallery_btn = (ImageButton) findViewById(R.id.action_gallery);
+		gallery_btn.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+						  // nothing
+			}
+ 
+		});
+		
+		ImageButton camera_btn = (ImageButton) findViewById(R.id.action_camera);
+		camera_btn.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+						   cameraActionPressed( arg0 );
+			}
+ 
+		});
+		
 		hor_gallery.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
-//				GalleryItem img = mImages.get(position);
-				
-				
-//				if( img.isSelected ) {
-//					if (mCount == 0) {
-//						Button btnView = (Button) findViewById(R.id.button_generate_collage);
-//						btnView.setEnabled(false);
-//					}
-				
 				ImageView im = new ImageView(v.getContext());
-//				RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) im.getLayoutParams();
-//				lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-//				im.setLayoutParams(lp);
-//				im.setScaleY(10);
-//				im.setScaleType(ScaleType.FIT_START);
-					
-//				} else if (mCount != 0){
-//					final int dimen = (int)getResources().getDimension(R.dimen.step_1_2);
-//					((ImageView)v).setPadding(dimen, dimen, dimen, dimen);
-//					
-//					img.isSelected = true;
-//					mCount--;
-//					mResult.add(img);
-//				}
-//				
-//				if (mCount == 0) {
-//					Button btnView = (Button) findViewById(R.id.button_generate_collage);
-//					btnView.setEnabled(true);
-//				}
-//				
-//				TextView titleView = (TextView) findViewById(R.id.title_step3_select_photos);
-//				titleView.setText(getString(R.string.pattern_title_step3_info, mCount));
 			}
 		});
-//		Bitmap myBitmap = null;
-//		new Thread() {
-//			@Override
-//			public void run(){
-//			
-//		
-//		try {
-//			URL url = new URL("http://i.imgur.com/DvpvklR.png");
-//			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//			connection.setDoInput(true);
-//			connection.connect();
-//			InputStream input = connection.getInputStream();
-//			myBitmap = BitmapFactory.decodeStream(input);
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//
-//		}
-//		}
-//		}.start();
 		
-//		if (myBitmap != null) {
-//			System.out.print("picture found!");
-//			for (int i=0; i<6; i++) {
-//				mImages.add(new GalleryItem(0, myBitmap));
-//			}
-//		}
-		
-
-
-		// hor_gallery.addView(insertPhoto(file.getAbsolutePath()));
-
 	}
-	
-//	  private class LongOperation extends AsyncTask<String, Void, String> {
-//
-//	        @Override
-//	        protected String doInBackground() {
-//	            for (int i = 0; i < 5; i++) {
-//	                try {
-//	                    Thread.sleep(1000);
-//	                } catch (InterruptedException e) {
-//	                    Thread.interrupted();
-//	                }
-//	            }
-//	            return "Executed";
-//	        }
-//
-//	        @Override
-//	        protected void onPostExecute(String result) {
-//	            TextView txt = (TextView) findViewById(R.id.output);
-//	            txt.setText("Executed"); // txt.setText(result);
-//	            // might want to change "executed" for the returned string passed
-//	            // into onPostExecute() but that is upto you
-//	        }
-//
-//	        @Override
-//	        protected void onPreExecute() {}
-//
-//	        @Override
-//	        protected void onProgressUpdate(Void... values) {}
-//	    }
 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Infalte the menu items for use rin the action bar
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.gallery_actions, menu);
-		return super.onCreateOptionsMenu(menu);
+
+		
+		return true;
 	}
 
 	// Called when the user clicks the Send button

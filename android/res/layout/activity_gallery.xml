@@ -2,28 +2,118 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main"
     android:orientation="vertical" >
 
-	<GridView
+    <GridView
         android:id="@+id/hor_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:columnWidth="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="60dp"
+        android:columnWidth="130dp"
         android:gravity="center"
         android:horizontalSpacing="20dp"
         android:numColumns="2"
         android:verticalSpacing="8dp" />
 
 
-        <Button
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/bottom_bar"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/bottom_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="43dp"
-            android:onClick="cameraActionPressed"
-            android:text="@string/capture_picture" />
- <!-- Methods name is capturePic -->
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:width="0dp" >
+
+                <ImageButton
+                    android:id="@+id/action_camera"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_camera" >
+                </ImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/grey"
+                android:gravity="center"
+                android:width="0dp" >
+
+                <ImageButton
+                    android:id="@+id/action_gallery"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_gallery" >
+                </ImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:width="0dp" >
+
+                <ImageButton
+                    android:id="@+id/action_timer"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_timer" >
+                </ImageButton>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/upper_bar"
+        android:stretchColumns="*" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical" >
+
+            <ImageButton
+                android:id="@+id/action_nearby"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_nearby" />
+
+            <ImageButton
+                android:id="@+id/action_top"
+                android:layout_width="23dip"
+                android:layout_height="23dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/ic_top" />
+        </RelativeLayout>
+    </TableLayout>
 
 </RelativeLayout>

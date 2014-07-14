@@ -3,6 +3,7 @@ package com.android.weekender;
 
 import java.util.HashMap;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -35,7 +36,7 @@ public class Login extends ActionBarActivity {
 	
 	static final String EXTRA_MESSAGE = "com.android.weekender.MESSAGE";
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
  
@@ -45,7 +46,12 @@ public class Login extends ActionBarActivity {
 		uiHelper.onCreate(savedInstanceState);
  
 		setContentView(R.layout.activity_login);
-
+		
+		// Actionbar options
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setHomeButtonEnabled(false);
+		
 		loginBtn = (LoginButton) findViewById(R.id.fb_login_button);
 		loginBtn.setUserInfoChangedCallback(new UserInfoChangedCallback() {
 			@Override

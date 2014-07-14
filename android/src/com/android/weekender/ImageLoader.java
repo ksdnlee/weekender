@@ -39,7 +39,7 @@ public class ImageLoader {
 			@Override
 			public void handleMessage(Message message) {
 				final Bitmap image = (Bitmap) message.obj;
-				mView.setImageBitmap(image);
+				mView.setImageBitmap(Bitmap.createScaledBitmap(image, 500, 500, false));
 			}
 		};
 
@@ -127,7 +127,7 @@ public class ImageLoader {
 		    options.inJustDecodeBounds = false;
 		    
 			bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
-
+			
 			
 
 		} catch (ParseException pe) {
@@ -138,5 +138,8 @@ public class ImageLoader {
 		// }
 		return bitmap;
 	}
+	
+	// CODE FOR BITMAP SHADOW
+	// http://stackoverflow.com/questions/17655264/how-to-add-a-shadow-and-a-border-on-circular-imageview-android
 
 }
