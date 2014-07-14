@@ -143,6 +143,16 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
  
 		});
 		
+		ImageButton timer_btn = (ImageButton) findViewById(R.id.action_timer);
+		timer_btn.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View arg0) {
+						   timerActionPressed( arg0 );
+			}
+ 
+		});
+		
 		hor_gallery.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -170,6 +180,11 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 		startActivity(intent);
 	}
 
+	public void timerActionPressed(View view) {
+		Intent intent = new Intent(this, TimerActivity.class);
+		intent.putExtra(Constants.USER_OBJECT, uObject);
+		startActivity(intent);
+	}
 	View insertPhoto(String path) {
 		return mGP.insertPhoto(path, getApplicationContext());
 	}
