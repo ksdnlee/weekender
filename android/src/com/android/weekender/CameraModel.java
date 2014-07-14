@@ -70,8 +70,9 @@ public class CameraModel {
 	}
 
 	public Bitmap getImage() {
-		Log.i("[CameraModel] getImage", "photo filepath: " + photoPath.getPath());
-		Bitmap bitmap_photo = BitmapFactory.decodeFile(photoPath.getPath());
+		Log.i("[CameraModel] getImage",
+				"photo filepath: " + photoPath.getPath());
+		Bitmap bitmap_photo = decodeFile(photoPath.getPath());
 		return bitmap_photo;
 	}
 
@@ -86,9 +87,10 @@ public class CameraModel {
 		post_data.put(parseUserIdColumn, userId);
 
 		if (latitude != null || longitude != null) {
-			post_data.put(parseGeoPoint, new ParseGeoPoint(latitude, longitude));
+			post_data
+					.put(parseGeoPoint, new ParseGeoPoint(latitude, longitude));
 		}
-		
+
 		post_data.put(parseTitleColumn, title);
 		post_data.put(parseImageByteColumn, parse_photo);
 
@@ -96,7 +98,8 @@ public class CameraModel {
 			post_data.saveInBackground(new SaveCallback() {
 				public void done(ParseException e) {
 					if (e == null) {
-						Log.d("[CameraModel] publish", "Saved picture successfully");
+						Log.d("[CameraModel] publish",
+								"Saved picture successfully");
 					} else {
 						Log.e("[CameraModel] publish",
 								"Could not save picture: " + e.getMessage());
@@ -121,21 +124,22 @@ public class CameraModel {
 		try {
 			// Decode image size
 			BitmapFactory.Options o = new BitmapFactory.Options();
-			o.inJustDecodeBounds = true;
-			BitmapFactory.decodeFile(path, o);
-			// The new size we want to scale to
-			final int REQUIRED_SIZE = 70;
 
-			// Find the correct scale value. It should be the power of 2.
-			int scale = 1;
-			while (o.outWidth / scale / 2 >= REQUIRED_SIZE
-					&& o.outHeight / scale / 2 >= REQUIRED_SIZE)
-				scale *= 2;
+			// First decode with inJustDecodeBounds=true to check dimensions
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;
 
-			// Decode with inSampleSize
-			BitmapFactory.Options o2 = new BitmapFactory.Options();
-			o2.inSampleSize = scale;
-			return BitmapFactory.decodeFile(path, o2);
+			BitmapFactory.decodeFile(path, options);
+
+			// Calculate inSampleSize
+			options.inSampleSize = calculateInSampleSize(options, 400,
+					(int) 1.3 * 400);
+
+			// Decode bitmap with inSampleSize set
+			options.inJustDecodeBounds = false;
+
+			return BitmapFactory.decodeFile(path, options);
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -159,6 +163,30 @@ public class CameraModel {
 
 		longitude = location.getLongitude();
 		latitude = location.getLatitude();
+	}
+
+	public static int calculateInSampleSize(BitmapFactory.Options options,
+			int reqWidth, int reqHeight) {
+		// Raw height and width of image
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+
+		if (height > reqHeight || width > reqWidth) {
+
+			final int halfHeight = height / 2;
+			final int halfWidth = width / 2;
+
+			// Calculate the largest inSampleSize value that is a power of 2 and
+			// keeps both
+			// height and width larger than the requested height and width.
+			while ((halfHeight / inSampleSize) > reqHeight
+					&& (halfWidth / inSampleSize) > reqWidth) {
+				inSampleSize *= 2;
+			}
+		}
+
+		return inSampleSize;
 	}
 
 }

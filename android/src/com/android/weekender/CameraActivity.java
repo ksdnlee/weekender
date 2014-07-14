@@ -8,17 +8,23 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CameraActivity extends ActionBarActivity {
 	private ImageView pictureView;
 	private EditText captionTitle;
+	private TextView captionText;
+	private Button publishButton;
+	
 	CameraPresenter mCameraPresenter;
 	int CAMERA_REQUEST = 1888;
 	LocationManager locManager = null;
@@ -29,7 +35,20 @@ public class CameraActivity extends ActionBarActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cam);
+		
+		// Interface Button
+				pictureView = (ImageView) findViewById(R.id.pictureView);
+				captionTitle = (EditText) findViewById(R.id.title);
+				captionText = (TextView) findViewById(R.id.caption);
+				publishButton = (Button) findViewById(R.id.publishButton);
+	
+		// Set font type
+		Typeface showFont = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");   
+		captionText.setTypeface(showFont,Typeface.NORMAL);
+		publishButton.setTypeface(showFont,Typeface.NORMAL);
 
+		
+		
 		// get UserObject
 		Bundle b = getIntent().getExtras();
 		if (b != null){
@@ -46,6 +65,7 @@ public class CameraActivity extends ActionBarActivity {
 		pictureView = (ImageView) findViewById(R.id.pictureView);
 		captionTitle = (EditText) findViewById(R.id.title);
 
+
 		// Start Camera Intent
 		mCameraPresenter = new CameraPresenter(this);
 		Intent cameraIntent = mCameraPresenter.getCameraIntent();
@@ -58,8 +78,8 @@ public class CameraActivity extends ActionBarActivity {
 		pictureView.setImageBitmap(image);
 		
 		// get GeoPoint
-		//locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		//mCameraPresenter.setGeoPoint(locManager);
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		mCameraPresenter.setGeoPoint(locManager);
 		
 	}
 
@@ -80,10 +100,6 @@ public class CameraActivity extends ActionBarActivity {
 			Toast.makeText(getApplicationContext(), "Unable to publish.",
 					Toast.LENGTH_SHORT).show();
 		}
-	}
-
-	public void cancel(View v) {
-		goToGalleryActivity();
 	}
 
 	private void goToGalleryActivity() {
