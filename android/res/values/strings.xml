@@ -10,6 +10,7 @@
     <string name="capture_picture">Camera</string>
     <string name="title_activity_capture">Capture</string>
     <string name="title_activity_gallery">Gallery</string>
+    <string name="title_activity_timer">Timer</string>
     <string name="publish_picture">Publish</string>
     <string name="picture_title">Picture Title</string>
     <string name="picture_cancel">Cancel</string>

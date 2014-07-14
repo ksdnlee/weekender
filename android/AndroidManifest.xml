@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <uses-feature
@@ -50,6 +50,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.weekender.Login" />
+        </activity>
+        <!--  4th activity -->
+        <activity
+            android:name="com.android.weekender.TimerActivity"
+            android:label="@string/title_activity_timer"
+            android:parentActivityName="com.android.weekender.GalleryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.weekender.Timer" />
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
         <activity android:name="com.facebook.LoginActivity" android:label="@string/app_name"></activity>
