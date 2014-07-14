@@ -1,21 +1,34 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.android.weekender.Gallery" >
+<!-- <Relativ
     <item
         android:id="@+id/action_camera"
+        android:icon="@drawable/ic_camera"
         android:title="@string/action_camera"
+		android:gravity="center"     
         app:showAsAction="always" />
     <item
         android:id="@+id/action_gallery"
+        android:icon="@drawable/ic_gallery"
         android:title="@string/action_gallery"
+		android:gravity="center"     
         app:showAsAction="always" />
     <item
         android:id="@+id/action_nearby"
+        android:icon="@drawable/ic_nearby"
         android:title="@string/action_nearby"
         app:showAsAction="always" />
 	<item
         android:id="@+id/action_timer"
+        android:icon="@drawable/ic_timer"        
         android:title="@string/action_timer"
         app:showAsAction="always" />
-</menu>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
+</Re>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
+</Rela>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
+</Relati>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
+</Relative>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
+ -->
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"></menu>
