@@ -53,8 +53,8 @@ public class CameraActivity extends ActionBarActivity {
 		pictureView.setImageBitmap(image);
 		
 		// get GeoPoint
-		//locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		//mCameraPresenter.setGeoPoint(locManager);
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		mCameraPresenter.setGeoPoint(locManager);
 		
 	}
 
