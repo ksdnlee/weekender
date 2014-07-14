@@ -5,49 +5,46 @@
     android:orientation="vertical" >
 
     <ImageView
-    	android:id="@+id/pictureView"
+        android:id="@+id/pictureView"
         android:layout_width="fill_parent"
-        android:layout_marginTop="30dp"
         android:layout_height="209dp"
-        android:visibility="visible"
-    />
-
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/caption"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/publishButton"
-        android:layout_alignBottom="@+id/publishButton"
-        android:layout_alignLeft="@+id/title"
-        android:onClick="cancel"
-        android:text="@string/picture_cancel" />
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/publishButton"
+        android:layout_below="@+id/pictureView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="81dp"
-        android:text="@string/picture_title" />
+        android:text="@string/picture_title"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/caption"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/edittext_top_bg"
+        android:ems="10"
+        android:hint="Picture Title"
+        android:padding="10dp"
+        android:textColorHint="#bbbbbb" />
 
     <Button
         android:id="@+id/publishButton"
+        style="@style/DefaultButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/title"
-        android:layout_marginBottom="24dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_default_bg"
         android:onClick="publish"
-        android:text="@string/publish_picture" />
+        android:padding="15dp"
+        android:text="@string/publish_picture"
+        android:textSize="15sp" />
 
 </RelativeLayout>
