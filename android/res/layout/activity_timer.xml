@@ -8,20 +8,102 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="200dp"
-        android:text="Large Text"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView
-        android:id="@+id/timeView"
-        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Weekend"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="250dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" >
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/timeView_seconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/timeView_minutes"
+        android:layout_alignBottom="@+id/timeView_minutes"
+        android:layout_toRightOf="@+id/timeView_minutes"
+        android:text="03"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/timeView_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/timeView_hours"
+        android:layout_alignBottom="@+id/timeView_hours"
+        android:layout_toLeftOf="@+id/timeView_hours"
+        android:text="00"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/timeView_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/timeView_minutes"
+        android:layout_alignBottom="@+id/timeView_minutes"
+        android:layout_toLeftOf="@+id/timeView_minutes"
+        android:text="01"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/timeView_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_toRightOf="@+id/linearLayout1"
+        android:text="02"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/textseconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timeView_seconds"
+        android:layout_below="@+id/timeView_seconds"
+        android:gravity="center"
+        android:text="SECOND(S)"
+        android:textSize="8sp" />
+    
+    <TextView
+        android:id="@+id/textdays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timeView_days"
+        android:layout_below="@+id/timeView_days"
+        android:gravity="center"
+        android:text="DAY(S)"
+        android:textSize="8sp" />
+    
+    <TextView
+        android:id="@+id/texthours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timeView_hours"
+        android:layout_below="@+id/timeView_hours"
+        android:gravity="center"
+        android:text="HOUR(S)"
+        android:textSize="8sp" />
+    
+    <TextView
+        android:id="@+id/textminutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timeView_minutes"
+        android:layout_below="@+id/timeView_minutes"
+        android:gravity="center"
+        android:text="MINUTE(S)"
+        android:textSize="8sp" />
 
 </RelativeLayout>
