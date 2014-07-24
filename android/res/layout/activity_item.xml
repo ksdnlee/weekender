@@ -12,6 +12,8 @@
             android:id="@+id/focusItem"
             android:layout_width="fill_parent"
             android:layout_height="300dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/photo_caption"            
             android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
 
         <ImageButton
@@ -20,19 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/focusItem"
             android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
             android:contentDescription="likes" />
-
-        <ImageButton
-            android:id="@+id/comment_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/like_button"
-            android:layout_marginLeft="106dp"
-            android:layout_toRightOf="@+id/like_button"
-            android:contentDescription="comments"
-            android:onClick="openComments"
-            android:background="@android:color/transparent"
-            android:src="@drawable/comment" />
 
         <TextView
             android:id="@+id/like_view"
@@ -40,6 +31,28 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/like_button"
             android:layout_toRightOf="@+id/like_button"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+         
+        <ImageButton
+            android:id="@+id/comment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/like_button"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="comments"
+            android:onClick="openComments"
+            android:src="@drawable/comment" />
+
+        <TextView
+            android:id="@+id/photo_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>

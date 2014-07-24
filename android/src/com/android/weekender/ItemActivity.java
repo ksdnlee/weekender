@@ -4,10 +4,13 @@ import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ public class ItemActivity extends ActionBarActivity {
 	String pictureId;
 	String isToggled;
 
+	TextView photoCaption;
 	TextView showLikes ;
 	ImageButton like_button;
 
@@ -41,8 +45,17 @@ public class ItemActivity extends ActionBarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); 
+		
 		setContentView(R.layout.activity_item);
+		
+		//set font
+		Typeface captionFont = Typeface.createFromAsset(getAssets(),
+				"fonts/Pacifico.ttf");
+		
+		photoCaption = (TextView) findViewById(R.id.photo_caption);
 		showLikes = (TextView) findViewById(R.id.like_view);
 		like_button = (ImageButton) findViewById(R.id.like_button);
 		// get UserObject
@@ -56,6 +69,8 @@ public class ItemActivity extends ActionBarActivity {
 		Toast.makeText(getApplicationContext(),
 			uObject.getUserId(), Toast.LENGTH_SHORT).show();
 		
+		photoCaption.setTypeface(captionFont, Typeface.NORMAL);
+
 		// Get Intent and Fetch Image
 		Intent intent = getIntent();
 		pictureId = intent.getStringExtra("imageId");
@@ -69,8 +84,10 @@ public class ItemActivity extends ActionBarActivity {
 		params.put("pictureId", pictureId);
 
 		try {
+			String caption = ParseCloud.callFunction("getCaption", params);
 			String numLikes = ParseCloud.callFunction("getLikesByPictureId",
 					params).toString();
+			photoCaption.setText(caption);
 			showLikes.setText(numLikes);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -106,9 +123,6 @@ public class ItemActivity extends ActionBarActivity {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("pictureId", pictureId);
 		params.put("userId", uObject.getUserId());
-		Toast.makeText(getApplicationContext(),
-				"here", Toast.LENGTH_SHORT).show();
-
 		try {
 			String numLikes = ParseCloud.callFunction("updateLike",
 					params).toString();
