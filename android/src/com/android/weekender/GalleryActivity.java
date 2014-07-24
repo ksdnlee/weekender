@@ -62,7 +62,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 	GridView hor_gallery;
 	UserObject uObject;
 	private ArrayList<GalleryItem> mImages;
-
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		final String imagesClass = Constants.CLASS_IMAGES;
 		params.put("start", "0");
-		params.put("end", "6");
+		params.put("end", "10");
 		params.put("classname", imagesClass);
 
 		// get all  the id's here in an array and then pass the array to Adapter
@@ -158,7 +158,13 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
-				ImageView im = new ImageView(v.getContext());
+//				String imageId = ( String )parent.getAdapter().getItem( position ).toString();
+				String imageId = mImages.get(position).getId();
+				Intent i = new Intent( getApplicationContext(), ItemActivity.class );
+				i.putExtra("imageId", imageId);
+				startActivity( i ); 
+
+				// Gallery-> get image -> send to new activity 
 			}
 		});
 		

@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/focusItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+        <ImageButton
+            android:id="@+id/like_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="21dp"
+            android:contentDescription="likes"
+            android:onClick="toggleLike"
+            android:src="@drawable/ic_nearby" />
+
+        <ImageButton
+            android:id="@+id/comment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageButton1"
+            android:layout_marginRight="33dp"
+            android:contentDescription="comments"
+            android:onClick="openComments"
+            android:src="@drawable/ic_top" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/like_button"
+            android:layout_alignTop="@+id/like_button"
+            android:layout_toRightOf="@+id/like_button"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+</FrameLayout>

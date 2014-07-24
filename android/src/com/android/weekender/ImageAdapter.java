@@ -39,7 +39,7 @@ public class ImageAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView = new ImageView(mContext);
-		ImageLoader.fetchImage(mList.get(position).getId(), imageView, mContext);
+		ImageLoader.fetchImage(mList.get(position).getId(), imageView, mContext, 0);
 //		imageView.setImageBitmap(mList.get(position).getBitmap());
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 

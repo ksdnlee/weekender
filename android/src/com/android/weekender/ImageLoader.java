@@ -20,9 +20,12 @@ import com.parse.ParseQuery;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -30,7 +33,7 @@ public class ImageLoader {
 	private final static String TAG = "ImadeLoader";
 
 	public static void fetchImage(final String mId, final ImageView mView,
-			final Context mContext) {
+			final Context mContext, final int isMax) {
 		if (mView == null || mContext == null || mId == null) {
 			return;
 		}
@@ -39,14 +42,21 @@ public class ImageLoader {
 			@Override
 			public void handleMessage(Message message) {
 				final Bitmap image = (Bitmap) message.obj;
-				mView.setImageBitmap(Bitmap.createScaledBitmap(image, 500, 500, false));
+				int dimen;
+				if (isMax == 1) {
+					dimen = 800;
+				}
+				else {
+					dimen = 500;
+				}
+				mView.setImageBitmap(Bitmap.createScaledBitmap(image, dimen, dimen, false));
 			}
 		};
 
 		final Thread thread = new Thread() {
 			@Override
 			public void run() {
-				final Bitmap image = downloadImage(mId, mContext);
+				final Bitmap image = downloadImage(mId, mContext, isMax);
 				if (image != null) {
 					final Message message = handler.obtainMessage(1, image);
 					handler.sendMessage(message);
@@ -85,17 +95,13 @@ public class ImageLoader {
 		return inSampleSize;
 	}
 
-	public static Bitmap downloadImage(String mId, Context ctx) {
+	public static Bitmap downloadImage(String mId, Context ctx, int isMax) {
 		Parse.initialize(ctx, "7rl4Da1XbvpuaKKDKb6VCMZseFZkwEuKyXT4QPDd",
 				"2Rah9NP3dkgUhfToKZlCXT6YLOl4WQUNEMLyC8Ol");
 
 		// get Images
-
-		HashMap<String, Object> params = new HashMap<String, Object>();
 		final String imagesClass = Constants.CLASS_IMAGES;
-		params.put("start", "0");
-		params.put("end", "10");
-		params.put("classname", imagesClass);
+
 
 		// get all the id's here in an array and then pass the array to Adapter
 
@@ -120,8 +126,20 @@ public class ImageLoader {
 
 			BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 			
+			WindowManager wm = (WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE);
+			Display display = wm.getDefaultDisplay();
+			Point size = new Point();
+			display.getSize(size);
+			int width = size.x;
+			int height = size.y;
+			
 			// Calculate inSampleSize
-		    options.inSampleSize = calculateInSampleSize(options, 400, (int)1.3 * 400);
+			if (isMax == 0){
+				options.inSampleSize = calculateInSampleSize(options, 400, (int)1.3 * 400);
+			}
+			else {
+//				options.inSampleSize = calculateInSampleSize(options, size.x, (int)1.3 * size.y);
+			}
 
 		    // Decode bitmap with inSampleSize set
 		    options.inJustDecodeBounds = false;

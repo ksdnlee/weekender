@@ -11,6 +11,7 @@
     <string name="title_activity_capture">Capture</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="title_activity_timer">Timer</string>
+    <string name="title_activity_item">Item</string>
     <string name="publish_picture">Publish</string>
     <string name="picture_title">Picture Title</string>
     <string name="picture_cancel">Cancel</string>
@@ -18,6 +19,7 @@
     <string name="action_gallery">G</string>
     <string name="action_nearby">N</string>
     <string name="action_timer">T</string>
+    <string name="focusItem">Image</string>
     <string name="app_id">545066898932768</string>
 
 </resources>
