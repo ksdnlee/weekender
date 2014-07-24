@@ -162,6 +162,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 				String imageId = mImages.get(position).getId();
 				Intent i = new Intent( getApplicationContext(), ItemActivity.class );
 				i.putExtra("imageId", imageId);
+				i.putExtra(Constants.USER_OBJECT, uObject);
 				startActivity( i ); 
 
 				// Gallery-> get image -> send to new activity 
