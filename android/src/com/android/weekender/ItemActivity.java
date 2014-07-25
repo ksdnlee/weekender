@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -153,6 +154,8 @@ public class ItemActivity extends ActionBarActivity {
 
 		    // set some properties of rowTextView or something
 		    rowTextView.setText(userId + ": " + userComment);
+		    
+		    rowTextView.setBackground(getResources().getDrawable(R.drawable.textview_comments));
 
 		    // add the textview to the linearlayout
 		    comments.addView(rowTextView);
