@@ -150,7 +150,8 @@ public class ItemActivity extends ActionBarActivity {
 
 		    // set some properties of rowTextView or something
 		    rowTextView.setText(userId + ": " + userComment);
-		    
+		    rowTextView.setTextSize(16);
+		    rowTextView.setPadding(20, 40, 20, 40);
 		    rowTextView.setBackground(getResources().getDrawable(R.drawable.textview_comments));
 
 		    // add the textview to the linearlayout
@@ -234,7 +235,11 @@ public class ItemActivity extends ActionBarActivity {
 		post_data.saveInBackground();
 
 		commentText.setText("");
-		Toast.makeText(getApplicationContext(), "Comments Updated", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Comment Uploaded", Toast.LENGTH_SHORT).show();
+		
+		finish();
+		startActivity(getIntent());
+		
 	}
 
 }
