@@ -73,6 +73,11 @@ public class ItemActivity extends ActionBarActivity {
 		Typeface numberFont = Typeface.createFromAsset(getAssets(),
 				"fonts/DS-DIGIB.ttf");
 		
+		Button post_button = (Button) findViewById(R.id.postComment);
+		
+		Typeface showFont = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");   
+		post_button.setTypeface(showFont,Typeface.NORMAL);
+		
 		photoCaption = (TextView) findViewById(R.id.photo_caption);
 		showLikes = (TextView) findViewById(R.id.like_view);
 		like_button = (ImageButton) findViewById(R.id.like_button);
@@ -83,9 +88,6 @@ public class ItemActivity extends ActionBarActivity {
 		} else {
 			Log.e("FailedUserObjectPassCamera", "FAIL TO GET ID");
 		}
-
-		Toast.makeText(getApplicationContext(),
-			uObject.getUserId(), Toast.LENGTH_SHORT).show();
 		
 		photoCaption.setTypeface(captionFont, Typeface.NORMAL);
 		showLikes.setTypeface(numberFont, Typeface.NORMAL);
