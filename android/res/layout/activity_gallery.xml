@@ -107,14 +107,7 @@
                 android:onClick="getNearbyImages"
                 android:background="@drawable/ic_nearby" />
 
-            <ImageButton
-                android:id="@+id/action_top"
-                android:layout_width="23dip"
-                android:layout_height="23dip"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/ic_top" />
+            
         </RelativeLayout>
     </TableLayout>
 
