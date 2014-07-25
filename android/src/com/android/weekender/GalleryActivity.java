@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,6 +54,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.android.weekender.helper.Constants;
 import com.android.weekender.helper.UserObject;
 
@@ -62,7 +65,7 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 	GridView hor_gallery;
 	UserObject uObject;
 	private ArrayList<GalleryItem> mImages;
-	
+	final Context thisCtx = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,52 +86,21 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 		
 		// make Presenter
 		mGP = new GalleryPresenter(this);
-		final Context thisCtx = this;
 		
 		Parse.initialize(this, "7rl4Da1XbvpuaKKDKb6VCMZseFZkwEuKyXT4QPDd",
 				"2Rah9NP3dkgUhfToKZlCXT6YLOl4WQUNEMLyC8Ol");
 
 		// get Images
-
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		final String imagesClass = Constants.CLASS_IMAGES;
-		params.put("start", "0");
-		params.put("end", "10");
-		params.put("classname", imagesClass);
-
-		// get all  the id's here in an array and then pass the array to Adapter
-		String pIds = null;
-		try {
-			pIds = ParseCloud.callFunction("getAllPictureObjectId", params);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getAllImages();
+		// end of getimages
 		
-		if (pIds == null) {
-			Log.d("Pictures", "Don't Exist");
-			return;
-		}
-		String[] ListPictureIds = pIds.split(",");
-		
-		mImages = new ArrayList<GalleryItem>(ListPictureIds.length);
-		for (int i=0; i < ListPictureIds.length; i++) {
-			mImages.add(new GalleryItem(0, ListPictureIds[i]));
-		}
-
-	
-		if (mImages.size() != 0) {
-			// reference the Gallery Layout
-			hor_gallery = (GridView) findViewById(R.id.hor_gallery);
-			hor_gallery.setAdapter(new ImageAdapter(thisCtx, mImages));
-		}
 		
 		ImageButton gallery_btn = (ImageButton) findViewById(R.id.action_gallery);
 		gallery_btn.setOnClickListener(new OnClickListener() {
  
 			@Override
 			public void onClick(View arg0) {
-						  // nothing
+				getAllImages();
 			}
  
 		});
@@ -177,6 +149,93 @@ public class GalleryActivity extends ActionBarActivity implements IGalleryView, 
 
 		
 		return true;
+	}
+	
+	public void getNearbyImages(View v) {
+		
+		LinearLayout ll = (LinearLayout) findViewById(R.id.gallery_background);
+		ll.setBackgroundColor(getResources().getColor(R.color.upper_bar));
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		final String imagesClass = Constants.CLASS_IMAGES;
+		params.put("start", "0");
+		params.put("end", "10");
+		
+		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+	    Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+	    Double longitude = location.getLongitude();
+	    Double latitude = location.getLatitude();
+		
+		params.put("latitude", latitude.toString());
+		params.put("longitude", longitude.toString());
+		params.put("classname", imagesClass);
+
+		// get all  the id's here in an array and then pass the array to Adapter
+		String pIds = null;
+		try {
+			pIds = ParseCloud.callFunction("getNearPictures", params);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (pIds == null) {
+			Log.d("Pictures", "Don't Exist");
+			return;
+		}
+		String[] ListPictureIds = pIds.split(",");
+		mImages.clear();
+		mImages = new ArrayList<GalleryItem>(ListPictureIds.length);
+		for (int i=0; i < ListPictureIds.length; i++) {
+			mImages.add(new GalleryItem(0, ListPictureIds[i]));
+		}
+
+	
+		if (mImages.size() != 0) {
+			// reference the Gallery Layout
+			hor_gallery = (GridView) findViewById(R.id.hor_gallery);
+			hor_gallery.setAdapter(new ImageAdapter(thisCtx, mImages));
+		}
+		
+	}
+	
+	public void getAllImages() {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.gallery_background);
+		ll.setBackgroundColor(getResources().getColor(R.color.grey));
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		final String imagesClass = Constants.CLASS_IMAGES;
+		params.put("start", "0");
+		params.put("end", "10");
+		params.put("classname", imagesClass);
+
+		// get all  the id's here in an array and then pass the array to Adapter
+		String pIds = null;
+		try {
+			pIds = ParseCloud.callFunction("getAllPictureObjectId", params);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (pIds == null) {
+			Log.d("Pictures", "Don't Exist");
+			return;
+		}
+		String[] ListPictureIds = pIds.split(",");
+
+		mImages = new ArrayList<GalleryItem>(ListPictureIds.length);
+		for (int i=0; i < ListPictureIds.length; i++) {
+			mImages.add(new GalleryItem(0, ListPictureIds[i]));
+		}
+
+	
+		if (mImages.size() != 0) {
+			// reference the Gallery Layout
+			hor_gallery = (GridView) findViewById(R.id.hor_gallery);
+			hor_gallery.setAdapter(new ImageAdapter(thisCtx, mImages));
+		}
+		
 	}
 
 	// Called when the user clicks the Send button

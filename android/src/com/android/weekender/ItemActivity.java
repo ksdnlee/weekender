@@ -68,6 +68,9 @@ public class ItemActivity extends ActionBarActivity {
 		//set font
 		Typeface captionFont = Typeface.createFromAsset(getAssets(),
 				"fonts/Pacifico.ttf");
+		//set font
+		Typeface numberFont = Typeface.createFromAsset(getAssets(),
+				"fonts/DS-DIGIB.ttf");
 		
 		photoCaption = (TextView) findViewById(R.id.photo_caption);
 		showLikes = (TextView) findViewById(R.id.like_view);
@@ -84,6 +87,7 @@ public class ItemActivity extends ActionBarActivity {
 			uObject.getUserId(), Toast.LENGTH_SHORT).show();
 		
 		photoCaption.setTypeface(captionFont, Typeface.NORMAL);
+		showLikes.setTypeface(numberFont, Typeface.NORMAL);
 
 		// Get Intent and Fetch Image
 		Intent intent = getIntent();
