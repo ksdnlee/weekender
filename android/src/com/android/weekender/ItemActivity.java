@@ -63,6 +63,8 @@ public class ItemActivity extends ActionBarActivity {
 		
 		setContentView(R.layout.activity_item);
 		
+		
+		
 		//set font
 		Typeface captionFont = Typeface.createFromAsset(getAssets(),
 				"fonts/Pacifico.ttf");

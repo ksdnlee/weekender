@@ -23,9 +23,18 @@
                     android:id="@+id/focusItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="50dp"
+                  
                     android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+
+                <TextView
+                    android:id="@+id/photo_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginBottom="20dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -52,8 +61,7 @@
                     android:layout_marginTop="400dp" >
                 </EditText>
 
-
-                <ImageButton
+                <Button
                     android:id="@+id/postComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,7 +70,7 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="comments"
                     android:onClick="openComments"
-                    android:src="@drawable/comment" />
+                    android:text="POST" />
             </RelativeLayout>
         </ViewFlipper>
 
@@ -70,9 +78,21 @@
             android:id="@+id/like_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
             android:contentDescription="likes" />
+
+        <ImageButton
+            android:id="@+id/showComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="comments"
+            android:onClick="openComments"
+            android:src="@drawable/comment" />
 
         <TextView
             android:id="@+id/like_view"
@@ -80,16 +100,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/like_button"
             android:layout_toRightOf="@+id/like_button"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/photo_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
