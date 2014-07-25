@@ -96,9 +96,11 @@ public class ItemActivity extends ActionBarActivity {
 
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("pictureId", pictureId);
-
+		String commentStr = null;
 		try {
 			String caption = ParseCloud.callFunction("getCaption", params);
+			commentStr = ParseCloud.callFunction("getComments", params);
+			
 			String numLikes = ParseCloud.callFunction("getLikesByPictureId",
 					params).toString();
 			photoCaption.setText(caption);
@@ -124,24 +126,43 @@ public class ItemActivity extends ActionBarActivity {
 		}
 		
 		LinearLayout comments = (LinearLayout) findViewById(R.id.commentSection);
-
-
-		// Add all the comments to the commentSection layout
-		all_comments = new TextView[size];
-		for (int i = 0; i < size; i++) {
-			 // create a new textview
-		    final TextView rowTextView = new TextView(this);
+		
+		
+//		String employee = "MUekdI0faq@c@great picture!@s@MUekdI0faq@c@hellodsad sadas,dasdasdasdas@s@MUekdI0faq@c@sadasdasdas@s@MUekdI0faq@c@hello world,@s@";
+        
+        String delims = "[@]"+"[s]"+"[@]";
+        String delims2 = "[@]"+"[c]"+"[@]";
+        String[] completeString = commentStr.split(delims);
+       
+       //System.out.println("first" + Arrays.toString(completeString));
+        
+       for(String s: completeString){
+           //user and comments array is made
+           String[] userComments = s.split(delims2);
+           
+           if (userComments.length <= 1) break;
+           
+           String userId = userComments[0];
+           String userComment = userComments[1];
+           
+           final TextView rowTextView = new TextView(this);
 
 		    // set some properties of rowTextView or something
-		    rowTextView.setText("This is row #" + i);
+		    rowTextView.setText(userId + ": " + userComment);
 
 		    // add the textview to the linearlayout
 		    comments.addView(rowTextView);
+       }
+		
+//		// Add all the comments to the commentSection layout
+//		all_comments = new TextView[size];
+//		for (int i = 0; i < size; i++) {
+//			 // create a new textview
+//		   
+//
+//		    // save a reference to the textview for later
+//		    all_comments[i] = rowTextView;
 
-		    // save a reference to the textview for later
-		    all_comments[i] = rowTextView;
-
-		}
 		
 		// Comments wrapper relativeLayout
 		// 	Add a editTExt and post button to the bottom
@@ -169,46 +190,10 @@ public class ItemActivity extends ActionBarActivity {
 //		cw.addView(myComment);
 		
 //		comments.setVisibility(View.GONE);
-		visible = false;
 	}
+
 	
 	public void toggleLike(View view) {
-		Intent intent = getIntent();
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("id", intent.getStringExtra("pictureId"));
-		//userId
-		
-		
-		//isLiked
-	}
-	
-	// Toggle comments
-	public void openComments(View view) {
-		ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.vFlipper);
-
-		viewFlipper.showNext();
-		
-//		LinearLayout comments = (LinearLayout) findViewById(R.id.commentSection);
-//		if ( visible ==  true ) {
-//			visible = false;
-//			comments.setVisibility(View.GONE);
-//		}
-//		else {
-//			visible = true;
-//			comments.setVisibility(View.VISIBLE);
-//		}
-
-		like_button.setOnClickListener( new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				toggleLike();
-			}
-			
-		});
-	}
-
-	public void toggleLike() {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("pictureId", pictureId);
 		params.put("userId", uObject.getUserId());
@@ -229,17 +214,21 @@ public class ItemActivity extends ActionBarActivity {
 		}
 	}
 	
+	// Toggle comments
+	public void openComments(View view) {
+		ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.vFlipper);
+		viewFlipper.showNext();
+	}
+
 	public void uploadComment(View view) {
 		EditText commentText = (EditText)findViewById(R.id.getComment);
 		String comments = commentText.getText().toString();
 
-
 		ParseObject post_data = new ParseObject("Comments");
-		post_data.put("pictureId", "Df6m2mShNN");
-		post_data.put("commenter", "MUekdI0faq");
+		post_data.put("pictureId", pictureId);
+		post_data.put("commenter", uObject.getfName());
 		post_data.put("comment", comments);
 		post_data.saveInBackground();
-
 
 		commentText.setText("");
 		Toast.makeText(getApplicationContext(), "Comments Updated", Toast.LENGTH_SHORT).show();
