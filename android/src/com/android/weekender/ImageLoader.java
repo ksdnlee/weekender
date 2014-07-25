@@ -44,7 +44,13 @@ public class ImageLoader {
 				final Bitmap image = (Bitmap) message.obj;
 				int dimen;
 				if (isMax == 1) {
-					dimen = 800;
+					WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+					Display display = wm.getDefaultDisplay();
+					Point size = new Point();
+					display.getSize(size);
+					int width = size.x;
+					int height = size.y;
+					dimen = width;
 				}
 				else {
 					dimen = 500;
