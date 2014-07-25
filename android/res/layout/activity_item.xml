@@ -52,13 +52,17 @@
                     android:layout_marginTop="400dp" >
                 </EditText>
 
-                <Button
+
+                <ImageButton
                     android:id="@+id/postComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="450dp"
-                    android:text="POST" />
+                    android:background="@android:color/transparent"
+                    android:contentDescription="comments"
+                    android:onClick="openComments"
+                    android:src="@drawable/comment" />
             </RelativeLayout>
         </ViewFlipper>
 
@@ -66,33 +70,26 @@
             android:id="@+id/like_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="21dp"
-            android:contentDescription="likes"
-            android:onClick="toggleLike"
-            android:src="@drawable/ic_nearby" />
-
-        <ImageButton
-            android:id="@+id/comment_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/like_button"
-            android:layout_marginRight="21dp"
-            android:contentDescription="comments"
-            android:onClick="openComments"
-            android:src="@drawable/ic_top" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="likes" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/like_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/like_button"
-            android:layout_alignTop="@+id/like_button"
             android:layout_toRightOf="@+id/like_button"
-            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/photo_caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
